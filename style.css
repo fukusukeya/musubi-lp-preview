@@ -139,16 +139,31 @@ header.scrolled {
 }
 
 .logo {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  color: var(--color-white);
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  height: 30px; /* ロゴ変更前のヘッダー高さを維持 */
+  transition: var(--transition);
+  display: flex;
+  align-items: flex-start;
+}
+
+.logo img {
+  max-height: 50px;
+  width: auto;
+  margin-top: -5px;
   transition: var(--transition);
 }
 
-header.scrolled .logo {
-  color: var(--color-primary);
+header:not(.scrolled) .logo-scrolled {
+  display: none;
+}
+
+header.scrolled .logo-default {
+  display: none;
+}
+
+header.scrolled .logo-scrolled {
+  display: inline-block;
+  max-height: 50px;
+  margin-top: -5px;
 }
 
 .nav-links {
@@ -272,6 +287,17 @@ header.scrolled .hamburger span {
   text-shadow: 0 4px 15px rgba(0,0,0,0.8), 0 0 30px rgba(0,0,0,0.5); /* 重めのシャドウで背景と同化するのを防ぐ */
   opacity: 0;
   animation: fadeIn 1.5s 0.5s forwards;
+}
+
+.footer-logo {
+  margin-bottom: 20px;
+  display: block;
+}
+
+.footer-logo img {
+  max-height: 70px;
+  width: auto;
+  margin-left: -5px; /* サイズ縮小に合わせて調整 */
 }
 
 .hero-subtitle {
@@ -632,6 +658,8 @@ footer {
 
 @media (max-width: 767px) {
   .hamburger { display: block; }
+  .logo img { max-height: 25px; margin-top: 0; }
+  .footer-logo img { max-height: 35px; }
   .nav-links {
     position: fixed;
     top: 0;
