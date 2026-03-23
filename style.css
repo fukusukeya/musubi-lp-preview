@@ -186,6 +186,48 @@ header.scrolled .nav-links li a {
   box-shadow: 0 4px 15px rgba(198, 168, 124, 0.4);
 }
 
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  z-index: 102;
+  width: 25px;
+  height: 18px;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: var(--color-white);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+header.scrolled .hamburger span {
+  background: var(--color-primary);
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 8px; }
+.hamburger span:nth-child(3) { top: 16px; }
+
+.hamburger.active span:nth-child(1) {
+  top: 8px;
+  transform: rotate(45deg);
+  background: var(--color-primary); /* Always dark when open menu is white */
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  top: 8px;
+  transform: rotate(-45deg);
+  background: var(--color-primary);
+}
+
 /* Hero Section (FV) */
 .hero {
   height: 100vh;
@@ -244,16 +286,18 @@ header.scrolled .nav-links li a {
 .scroll-down {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  width: 100%;
   z-index: 3;
   color: var(--color-white);
   font-family: var(--font-en);
   font-size: 0.8rem;
   letter-spacing: 0.2em;
+  text-indent: 0.2em; /* 最後の文字の余白分を補正して完全な中央へ */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   opacity: 0;
   animation: fadeIn 1.5s 2s forwards;
 }
@@ -587,7 +631,32 @@ footer {
 }
 
 @media (max-width: 767px) {
-  .nav-links { display: none; } /* Could add hamburger menu later */
+  .hamburger { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100vw;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--color-white);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    transition: var(--transition);
+    z-index: 101;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  }
+  .nav-links.active {
+    right: 0;
+  }
+  .nav-links li a {
+    color: var(--color-primary) !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  .btn-contact { margin-top: 20px; }
   .hero-title { font-size: 2.2rem; letter-spacing: 0.1em; }
   .hero-subtitle { font-size: 0.9rem; }
   .works-grid { grid-template-columns: 1fr; }
